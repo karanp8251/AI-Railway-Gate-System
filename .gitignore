@@ -1,0 +1,9 @@
+node_modules/
+.data/
+backend/data/
+dist/
+.env
+.env.local
+serviceAccountKey.json
+*.log
+.DS_Store

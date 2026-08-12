@@ -1,0 +1,58 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'authority')",
+        ".write": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'authority')"
+      }
+    },
+    "workers": {
+      ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'worker' || root.child('users').child(auth.uid).child('role').val() === 'authority')",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'authority'"
+    },
+    "authorities": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'authority'",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'authority'"
+    },
+    "alerts": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "logs": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() !== 'user'",
+      ".write": "auth != null"
+    },
+    "trainDetections": {
+      ".read": "auth != null",
+      ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'worker' || root.child('users').child(auth.uid).child('role').val() === 'authority')"
+    },
+    "sensorData": {
+      ".read": "auth != null",
+      ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'worker' || root.child('users').child(auth.uid).child('role').val() === 'authority')"
+    },
+    "gateStatus": {
+      ".read": "auth != null",
+      ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'worker' || root.child('users').child(auth.uid).child('role').val() === 'authority')"
+    },
+    "analytics": {
+      ".read": "auth != null",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'authority'"
+    },
+    "mqttMessages": {
+      ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'worker' || root.child('users').child(auth.uid).child('role').val() === 'authority')",
+      ".write": false
+    },
+    "devices": {
+      ".read": "auth != null",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'authority'"
+    },
+    "systemConfig": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'authority'",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'authority'"
+    },
+    "systemHealth": {
+      ".read": "auth != null",
+      ".write": false
+    }
+  }
+}
